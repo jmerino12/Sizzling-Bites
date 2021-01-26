@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import androidx.core.view.size
 import androidx.fragment.app.Fragment
@@ -17,6 +19,7 @@ class IntroductoryActivity : AppCompatActivity() {
     private lateinit var appName:ImageView
     private lateinit var splashImg:ImageView
     private lateinit var lottieAnimationView: LottieAnimationView
+    private lateinit var anim:Animation
 
     var  NUM_PAGER:Int = 3
     private lateinit var viewPager: ViewPager
@@ -39,6 +42,9 @@ class IntroductoryActivity : AppCompatActivity() {
         viewPager = findViewById(R.id.pager)
         onBoardingPager = ScreendSlidePagerAdapter(supportFragmentManager)
         viewPager.adapter = onBoardingPager
+
+        anim = AnimationUtils.loadAnimation(this,R.anim.o_b_animation)
+        viewPager.startAnimation(anim)
 
         splashImg.animate().translationY(-1600F).setDuration(1000).setStartDelay(4000)
         logo.animate().translationY(1400F).setDuration(1000).setStartDelay(4000)
