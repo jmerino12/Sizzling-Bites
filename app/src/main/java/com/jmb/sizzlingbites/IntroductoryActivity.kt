@@ -5,6 +5,11 @@ import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
 import android.widget.ImageView
+import androidx.core.view.size
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.viewpager.widget.ViewPager
 import com.airbnb.lottie.LottieAnimationView
 
 class IntroductoryActivity : AppCompatActivity() {
@@ -12,6 +17,10 @@ class IntroductoryActivity : AppCompatActivity() {
     private lateinit var appName:ImageView
     private lateinit var splashImg:ImageView
     private lateinit var lottieAnimationView: LottieAnimationView
+
+    var  NUM_PAGER:Int = 3
+    private lateinit var viewPager: ViewPager
+    private lateinit var onBoardingPager:ScreendSlidePagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //FULL WINDOW
@@ -27,12 +36,31 @@ class IntroductoryActivity : AppCompatActivity() {
         splashImg = findViewById(R.id.img)
         lottieAnimationView = findViewById(R.id.lottie)
 
+        viewPager = findViewById(R.id.pager)
+        onBoardingPager = ScreendSlidePagerAdapter(supportFragmentManager)
+        viewPager.adapter = onBoardingPager
+
         splashImg.animate().translationY(-1600F).setDuration(1000).setStartDelay(4000)
         logo.animate().translationY(1400F).setDuration(1000).setStartDelay(4000)
         appName.animate().translationY(1400F).setDuration(1000).setStartDelay(4000)
         lottieAnimationView.animate().translationY(1400F).setDuration(1000).setStartDelay(4000)
+    }
 
+    private class ScreendSlidePagerAdapter(fm: FragmentManager) :
+        FragmentStatePagerAdapter(fm) {
+        override fun getCount(): Int {
+            return  3
+        }
 
+        override fun getItem(position: Int): Fragment {
+            when (position) {
+                0 -> { return OnBoardingFragment1.newInstance()}
+                1 -> { return OnBoardingFragment2.newInstance()}
+                else -> { // Note the block
+                    return OnBoardingFragment3.newInstance()
+                }
+            }
+        }
 
     }
 }
