@@ -36,9 +36,9 @@ class StaticRvAdapter : RecyclerView.Adapter<StaticRvAdapter.ViewHolder>() {
             notifyDataSetChanged()
         }
         if (row_index == position){
-            holder.layout.setBackgroundResource(R.drawable.static_rv_bg)
-        }else{
             holder.layout.setBackgroundResource(R.drawable.static_rv_bg_selected)
+        }else{
+            holder.layout.setBackgroundResource(R.drawable.static_rv_bg)
         }
         //holder.bind(item, context, position,row_index)
     }
